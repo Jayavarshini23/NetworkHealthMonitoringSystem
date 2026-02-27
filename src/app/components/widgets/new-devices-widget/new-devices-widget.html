@@ -1,0 +1,41 @@
+<div class="new-devices-widget">
+  <div class="widget-header">
+    <h3>Newly Added Devices</h3>
+    <div class="time-range">Last {{ hours }} hours</div>
+  </div>
+  
+  <div class="widget-content">
+    <div *ngIf="isLoading" class="loading">
+      <div class="spinner"></div>
+      <span>Loading...</span>
+    </div>
+    
+    <div *ngIf="error" class="error">
+      {{ error }}
+    </div>
+    
+    <div *ngIf="!isLoading && !error" class="devices-list">
+      <div *ngIf="devices.length === 0" class="no-devices">
+        No new devices added in the last {{ hours }} hours
+      </div>
+      
+      <div *ngFor="let device of devices" class="device-item">
+        <div class="device-info">
+          <div class="device-name">{{ device.deviceName }}</div>
+          <div class="device-details">
+            <span class="device-uid">{{ device.deviceUid }}</span>
+            <span class="device-domain">{{ device.domainName }}</span>
+          </div>
+        </div>
+        <div class="device-meta">
+          <div class="device-status" [style.color]="getStatusColor(device.currentStatus)">
+            {{ device.currentStatus }}
+          </div>
+          <div class="device-time">
+            {{ getTimeAgo(device.createdAt) }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

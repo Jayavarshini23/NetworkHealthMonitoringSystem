@@ -1,0 +1,230 @@
+.device-table {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 20px;
+  height: 100%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+
+  &:hover {
+    border-color: #00ff41;
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+  }
+
+  .table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 16px;
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+
+      .back-button {
+        background: #333;
+        color: #00ff41;
+        border: 1px solid #00ff41;
+        padding: 8px 16px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: all 0.2s ease;
+
+        &:hover {
+          background: #00ff41;
+          color: #000;
+        }
+      }
+
+      h3 {
+        color: #00ff41;
+        margin: 0;
+        font-size: 20px;
+        font-weight: 600;
+      }
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+
+      .stats {
+        display: flex;
+        gap: 12px;
+
+        .stat-item {
+          color: #ccc;
+          font-size: 12px;
+          padding: 4px 8px;
+          background: #333;
+          border-radius: 12px;
+
+          &.active {
+            color: #00ff41;
+            background: rgba(0, 255, 65, 0.1);
+          }
+
+          &.inactive {
+            color: #ff4444;
+            background: rgba(255, 68, 68, 0.1);
+          }
+        }
+      }
+
+      .search-input {
+        background: #333;
+        border: 1px solid #555;
+        color: #fff;
+        padding: 8px 12px;
+        border-radius: 6px;
+        font-size: 14px;
+        width: 200px;
+        transition: all 0.2s ease;
+
+        &:focus {
+          outline: none;
+          border-color: #00ff41;
+          box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+        }
+
+        &::placeholder {
+          color: #666;
+        }
+      }
+    }
+  }
+
+  .table-content {
+    min-height: 400px;
+  }
+
+  .loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 400px;
+    color: #666;
+
+    .spinner {
+      width: 24px;
+      height: 24px;
+      border: 2px solid #333;
+      border-top: 2px solid #00ff41;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-right: 12px;
+    }
+  }
+
+  .error {
+    color: #ff4444;
+    text-align: center;
+    padding: 40px;
+  }
+
+  .table-container {
+    overflow-x: auto;
+  }
+
+  .no-devices {
+    color: #666;
+    text-align: center;
+    padding: 60px 20px;
+    font-style: italic;
+    font-size: 16px;
+  }
+
+  .devices-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #2a2a2a;
+    border-radius: 8px;
+    overflow: hidden;
+
+    thead {
+      background: #333;
+      border-bottom: 2px solid #00ff41;
+
+      th {
+        color: #00ff41;
+        padding: 16px;
+        text-align: left;
+        font-weight: 600;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+    }
+
+    tbody {
+      tr {
+        border-bottom: 1px solid #444;
+        transition: all 0.2s ease;
+
+        &:hover {
+          background: #333;
+        }
+
+        &:last-child {
+          border-bottom: none;
+        }
+      }
+    }
+
+    .device-row {
+      cursor: pointer;
+
+      td {
+        padding: 16px;
+        color: #fff;
+        font-size: 14px;
+
+        &.device-name {
+          font-weight: 600;
+          color: #00ff41;
+        }
+
+        &.device-uid {
+          font-family: 'Courier New', monospace;
+          font-size: 12px;
+          color: #666;
+        }
+
+        &.domain-name {
+          color: #ccc;
+        }
+
+        &.status {
+          .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #fff;
+          }
+        }
+
+        &.last-seen,
+        &.created-at {
+          color: #666;
+          font-size: 12px;
+        }
+      }
+    }
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

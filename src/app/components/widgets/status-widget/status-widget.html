@@ -1,0 +1,40 @@
+<div class="status-widget">
+  <div class="widget-header">
+    <h3>Device Status Overview</h3>
+    <div class="total-count">Total: {{ getTotalDevices() }}</div>
+  </div>
+  
+  <div class="widget-content">
+    <div *ngIf="isLoading" class="loading">
+      <div class="spinner"></div>
+      <span>Loading...</span>
+    </div>
+    
+    <div *ngIf="error" class="error">
+      {{ error }}
+    </div>
+    
+    <div *ngIf="!isLoading && !error && statusData" class="status-content">
+      <div class="status-item active">
+        <div class="status-info">
+          <div class="status-label">Active Devices</div>
+          <div class="status-count">{{ statusData.active }}</div>
+        </div>
+        <div class="status-percentage">{{ getActivePercentage() | number:'1.0-1' }}%</div>
+      </div>
+      
+      <div class="status-item inactive">
+        <div class="status-info">
+          <div class="status-label">Inactive Devices</div>
+          <div class="status-count">{{ statusData.inactive }}</div>
+        </div>
+        <div class="status-percentage">{{ getInactivePercentage() | number:'1.0-1' }}%</div>
+      </div>
+      
+      <div class="progress-bar">
+        <div class="progress-active" [style.width.%]="getActivePercentage()"></div>
+        <div class="progress-inactive" [style.width.%]="getInactivePercentage()"></div>
+      </div>
+    </div>
+  </div>
+</div>

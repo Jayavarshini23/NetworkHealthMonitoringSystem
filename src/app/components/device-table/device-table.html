@@ -1,0 +1,77 @@
+<div class="device-table">
+  <div class="table-header">
+    <div class="header-left">
+      <button *ngIf="showBackButton" class="back-button" (click)="onBackClick()">
+        ← Back to Dashboard
+      </button>
+      <h3>
+        {{ domain ? `Devices in ${domain}` : 'All Devices' }}
+      </h3>
+    </div>
+    <div class="header-right">
+      <div class="stats">
+        <span class="stat-item">Total: {{ getDeviceCount() }}</span>
+        <span class="stat-item active">Active: {{ getActiveCount() }}</span>
+        <span class="stat-item inactive">Inactive: {{ getInactiveCount() }}</span>
+      </div>
+      <input 
+        type="text" 
+        class="search-input" 
+        placeholder="Search devices..." 
+        [(ngModel)]="searchTerm" 
+        (input)="onSearchChange()"
+      >
+    </div>
+  </div>
+  
+  <div class="table-content">
+    <div *ngIf="isLoading" class="loading">
+      <div class="spinner"></div>
+      <span>Loading devices...</span>
+    </div>
+    
+    <div *ngIf="error" class="error">
+      {{ error }}
+    </div>
+    
+    <div *ngIf="!isLoading && !error" class="table-container">
+      <div *ngIf="filteredDevices.length === 0" class="no-devices">
+        No devices found
+      </div>
+      
+      <table *ngIf="filteredDevices.length > 0" class="devices-table">
+        <thead>
+          <tr>
+            <th>Device Name</th>
+            <th>Device UID</th>
+            <th>Domain</th>
+            <th>Status</th>
+            <th>Last Seen</th>
+            <th>Created At</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr 
+            *ngFor="let device of filteredDevices" 
+            class="device-row"
+            (click)="onDeviceClick(device)"
+          >
+            <td class="device-name">{{ device.deviceName }}</td>
+            <td class="device-uid">{{ device.deviceUid }}</td>
+            <td class="domain-name">{{ device.domainName }}</td>
+            <td class="status">
+              <span 
+                class="status-badge" 
+                [style.background-color]="getStatusColor(device.currentStatus)"
+              >
+                {{ device.currentStatus }}
+              </span>
+            </td>
+            <td class="last-seen">{{ device.lastSeenAt | date:'short' }}</td>
+            <td class="created-at">{{ device.createdAt | date:'short' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

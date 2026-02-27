@@ -1,0 +1,28 @@
+<div class="domain-widget">
+  <div class="widget-header">
+    <h3>Devices by Domain</h3>
+    <div class="total-count">Total: {{ getTotalDevices() }}</div>
+  </div>
+  
+  <div class="widget-content">
+    <div *ngIf="isLoading" class="loading">
+      <div class="spinner"></div>
+      <span>Loading...</span>
+    </div>
+    
+    <div *ngIf="error" class="error">
+      {{ error }}
+    </div>
+    
+    <div *ngIf="!isLoading && !error" class="domain-list">
+      <div 
+        *ngFor="let domain of domainData" 
+        class="domain-item"
+        (click)="onDomainClick(domain.domain)"
+      >
+        <div class="domain-name">{{ domain.domain }}</div>
+        <div class="domain-count">{{ domain.count }}</div>
+      </div>
+    </div>
+  </div>
+</div>

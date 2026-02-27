@@ -1,0 +1,75 @@
+<div class="dashboard">
+  <div class="dashboard-header">
+    <h1>Network Element Health Monitoring</h1>
+    <div class="header-info">
+      <span class="status-indicator online"></span>
+      <span>Real-time Monitoring</span>
+      <span class="refresh-info">Auto-refresh: 5s</span>
+    </div>
+  </div>
+
+  <!-- Dashboard View -->
+  <div *ngIf="!showDeviceTable" class="dashboard-content">
+    <div class="widgets-grid">
+      <!-- Widget 1: Devices by Domain -->
+      <div class="widget-container">
+        <app-domain-widget 
+          [domainData]="domainData"
+          (domainClick)="onDomainClick($event)"
+        ></app-domain-widget>
+      </div>
+
+      <!-- Widget 2: Active/Inactive Status -->
+      <div class="widget-container">
+        <app-status-widget 
+          [statusData]="statusData"
+        ></app-status-widget>
+      </div>
+
+      <!-- Widget 3: Newly Added Devices -->
+      <div class="widget-container">
+        <app-new-devices-widget 
+          [devices]="newDevices"
+          [hours]="24"
+        ></app-new-devices-widget>
+      </div>
+
+      <!-- Widget 4: Summary Stats -->
+      <div class="widget-container">
+        <div class="summary-widget">
+          <div class="widget-header">
+            <h3>System Overview</h3>
+          </div>
+          <div class="summary-content">
+            <div class="summary-item">
+              <div class="summary-label">Total Devices</div>
+              <div class="summary-value">{{ getTotalDevices() }}</div>
+            </div>
+            <div class="summary-item">
+              <div class="summary-label">Active Rate</div>
+              <div class="summary-value">{{ getActiveRate() | number:'1.0-1' }}%</div>
+            </div>
+            <div class="summary-item">
+              <div class="summary-label">New Today</div>
+              <div class="summary-value">{{ getNewDevicesCount() }}</div>
+            </div>
+            <div class="summary-item">
+              <div class="summary-label">Domains</div>
+              <div class="summary-value">{{ getDomainsCount() }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Device Table View -->
+  <div *ngIf="showDeviceTable" class="table-view">
+    <app-device-table
+      [domain]="selectedDomain"
+      [showBackButton]="true"
+      (backClick)="onBackToDashboard()"
+      (deviceClick)="onDeviceClick($event)"
+    ></app-device-table>
+  </div>
+</div>
